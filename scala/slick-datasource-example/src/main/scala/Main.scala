@@ -15,7 +15,8 @@ object Main {
     def main(args: Array[String]): Unit = {
        // val db = Database.forURL("jdbc:postgresql://maxroach@crdb-1:26257/defaultdb?sslmode=disable",
   //driver="org.postgresql.Driver")
-        
+
+        // http://scala-slick.org/doc/3.3.1/database.html
         val ds = new PGSimpleDataSource();
         ds.setServerName("localhost");
         ds.setPortNumber(26257);

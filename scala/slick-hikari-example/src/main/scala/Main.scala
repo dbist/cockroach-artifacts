@@ -48,6 +48,10 @@ object Main {
     }
 
   def main(args: Array[String]): Unit = {
+
+        // http://scala-slick.org/doc/3.3.1/database.html
+        // using TypeSafe config with Hikari
+
         val db = Database.forConfig("cockroach")
         val users = TableQuery[Users]
 
