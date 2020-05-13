@@ -10,7 +10,7 @@ import org.postgresql.ds.PGSimpleDataSource;
  *
  * @author artem
  */
-public class PostgreSQLJDBC {
+public class PostgresqlJDBC {
 
     public static void main(String args[]) {
 
