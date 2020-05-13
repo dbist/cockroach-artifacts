@@ -8,7 +8,12 @@ JaasSample {
 
 cli command to execute
 
+This currently works as part of stand-alone class, not via Maven.
+
 ```
+mkdir example
+cd example
+cp jaas.conf .
 javac JaasAcn.java
 java -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=krb.example.com -Djava.security.auth.login.config=jaas.conf JaasAcn
 ```
