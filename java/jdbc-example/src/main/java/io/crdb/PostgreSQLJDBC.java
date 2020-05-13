@@ -1,5 +1,5 @@
 // https://www.tutorialspoint.com/postgresql/postgresql_java.htm
-package com.cockroachlabs.crdb.java;
+package io.crdb;
 
 import java.sql.Connection;
 import java.sql.SQLException;
