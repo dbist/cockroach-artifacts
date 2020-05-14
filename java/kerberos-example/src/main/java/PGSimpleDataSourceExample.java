@@ -11,7 +11,7 @@ import com.sun.security.auth.callback.TextCallbackHandler;
  *
  * @author artem
  */
-public class PostgresqlJDBC {
+public class PGSimpleDataSourceExample {
 
     public static void main(String args[]) {
 
@@ -40,7 +40,7 @@ public class PostgresqlJDBC {
         ds.setServerName("localhost");
         ds.setPortNumber(26257);
         ds.setDatabaseName("defaultdb");
-        //ds.setUser("maxroach");
+        ds.setUseSpNego(true);
         ds.setPassword(null);
         ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg connection string
         ds.setApplicationName("BasicExample");
