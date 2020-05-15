@@ -40,10 +40,14 @@ public class PGSimpleDataSourceExample {
         ds.setServerName("localhost");
         ds.setPortNumber(26257);
         ds.setDatabaseName("defaultdb");
+        ds.setUser("carl");
+//        ds.setPassword(null);
+        ds.setSsl(false);
+        ds.setKerberosServerName("postgres");
+        ds.setJaasApplicationName("PGSimpleDataSourceExample");
+        ds.setJaasLogin(true);
+        ds.setGssLib("auto"); // can also be auto
         ds.setUseSpNego(true);
-        ds.setPassword(null);
-        ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg connection string
-        ds.setApplicationName("BasicExample");
 
         connectToDB(ds);
         //createTable(ds);
