@@ -12,26 +12,15 @@ import java.util.logging.Logger;
 public class PostgreSqlExampleKerberos {
     public static void main(String[] args) {
         try {
-            /**
-             * https://www.cockroachlabs.com/docs/stable/build-a-java-app-with-cockroachdb.html#step-2-create-the-maxroach-user-and-bank-database
-             * cockroach sql --certs-dir=certs
-             * CREATE USER IF NOT EXISTS maxroach;
-             * GRANT ALL ON DATABASE bank TO maxroach;
-             * 
-             * https://www.cockroachlabs.com/docs/stable/build-a-java-app-with-cockroachdb.html#step-3-generate-a-certificate-for-the-maxroach-user
-             * cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
-             */
-            
             Properties properties = new Properties();
             properties.setProperty("user", "pguser");
             
-            // need ssmode=verify-full as otherwise it forces password authentication
-            properties.setProperty("sslmode", "verify-full");
-            //properties.setProperty("sslcert", "certs/client.maxroach.crt");
-            
-            // make sure the key is in the pk8 format "--also-generate-pkcs8-key" option above
-            //properties.setProperty("sslkey", "certs/client.maxroach.key.pk8");
-            //properties.setProperty("sslrootcert", "certs/ca.crt");
+            // need ssmode=require with kerberos, otherwise asking for sslrootcert
+            properties.setProperty("sslmode", "require");
+            properties.setProperty("jaasLogin", "true");
+            properties.setProperty("jaasApplicationName", "KerberosExample");
+            properties.setProperty("kerberosServerName", "postgres");
+            properties.setProperty("gsslib", "auto");
                         
             Connection connection = getConnection(properties);
             
