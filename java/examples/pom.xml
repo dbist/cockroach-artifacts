@@ -30,7 +30,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.cockroachlabs.PostgreSqlExampleKerberos</mainClass>
+                            <mainClass>JaasAcn</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

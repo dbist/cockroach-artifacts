@@ -18,7 +18,7 @@ public class JaasAcn {
       // CallbackHandler.
       LoginContext lc = null;
       try {
-          lc = new LoginContext("JaasSample", 
+          lc = new LoginContext("KerberosExample", 
                       new TextCallbackHandler());
       } catch (LoginException | SecurityException le) {
           System.err.println("Cannot create LoginContext. "
