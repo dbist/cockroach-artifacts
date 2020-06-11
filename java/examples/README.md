@@ -1,7 +1,7 @@
 jaas.conf
 
 ```
-JaasSample {
+KerberosExample {
   com.sun.security.auth.module.Krb5LoginModule required;
 };
 ```
@@ -16,6 +16,12 @@ cd example
 cp jaas.conf .
 javac JaasAcn.java
 java -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=krb.example.com -Djava.security.auth.login.config=jaas.conf JaasAcn
+```
+
+if maven is used and maven-assembly has main class manifest, then command changes to
+
+```
+java -jar examples-1.0-SNAPSHOT-jar-with-dependencies.jar -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=node.example.com -Djava.security.auth.login.config=jaas.conf
 ```
 
 ```
