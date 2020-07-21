@@ -1,4 +1,4 @@
-# Scala app using CockroachDB, Slick, Hikari
+# Scala app using CockroachDB, Slick and Hikari
 
 ## Requires:
 1. CockroachDB: 19.2.4
