@@ -1,6 +1,8 @@
+# Sample kerberos example
+
 jaas.conf
 
-```
+```java
 KerberosExample {
   com.sun.security.auth.module.Krb5LoginModule required;
 };
@@ -10,7 +12,7 @@ cli command to execute
 
 This currently works as part of stand-alone class, not via Maven.
 
-```
+```bash
 mkdir example
 cd example
 cp jaas.conf .
@@ -20,11 +22,11 @@ java -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=krb.example
 
 if maven is used and maven-assembly has main class manifest, then command changes to
 
-```
+```bash
 java -jar examples-1.0-SNAPSHOT-jar-with-dependencies.jar -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=node.example.com -Djava.security.auth.login.config=jaas.conf
 ```
 
-```
+```bash
 Kerberos username [vagrant]: carl
 Kerberos password for carl:
 Authentication succeeded!
@@ -33,15 +35,12 @@ Authentication succeeded!
 if you get error message `message stream modified (41)`, this is an issue with CentOS 7 and it is required that `renew_lifetime = 7d` is removed from the `[libdefaults]` section of the `/etc/krb5.conf` file.
 
 
-```
+```bash
 javac -cp ".:postgresql-42.2.12.jar" PostgresqlJDBC.java
 java -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=krb.example.com -Djava.security.auth.login.config=jaas.conf PostgresqlJDBC
 ```
 
-
-
-
-```
+```bash
 [vagrant@node example]$ java -jar examples-1.0-SNAPSHOT-jar-with-dependencies.jar -Djava.security.krb5.realm=EXAMPLE.COM -Djava.security.krb5.kdc=node.example.com -Djava.security.auth.login.config=jaas.conf
 Jun 11, 2020 3:31:29 PM com.cockroachlabs.PostgreSqlExampleKerberos main
 SEVERE: null
