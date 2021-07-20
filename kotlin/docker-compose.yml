@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+
+  app:
+    container_name: app
+    hostname: app
+    build: .
+    # debug
+    # entrypoint: ["/usr/bin/tail", "-f", "/dev/null"]
+    entrypoint: ["/usr/bin/mvn", "clean", "package"]
+    ports:
+      - "26257:26257"
+    volumes:
+      - .:/code
+#    secrets:
+#      - freetier_pass
+
+#secrets:
+#  freetier_pass:
+#    file: ./freetier_credentials.txt

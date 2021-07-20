@@ -1,0 +1,4 @@
+/java/*/target/
+.postgresql
+/*/.idea
+/*/.mvn
