@@ -18,14 +18,17 @@ public class PostgresqlJDBC {
         ds.setServerName("localhost");
         ds.setPortNumber(26257);
         ds.setDatabaseName("defaultdb");
-        ds.setUser("maxroach");
+        ds.setUser("root");
         ds.setPassword(null);
         ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg connection string
         ds.setApplicationName("BasicExample");
 
         connectToDB(ds);
-        //createTable(ds);
+        createTable(ds);
+        truncateTable(ds);
         insertIntoTable(ds);
+        upsertIntoTable(ds);
+        upsertMultiRow(ds);
 
     }
 
@@ -46,7 +49,7 @@ public class PostgresqlJDBC {
         try {
             c = ds.getConnection();
                     stmt = c.createStatement();
-            String sql = "CREATE TABLE COMPANY "
+            String sql = "CREATE TABLE IF NOT EXISTS COMPANY "
                     + "(ID INT PRIMARY KEY     NOT NULL,"
                     + " NAME           TEXT    NOT NULL, "
                     + " AGE            INT     NOT NULL, "
@@ -62,38 +65,111 @@ public class PostgresqlJDBC {
         System.out.println("Table created successfully");
     }
 
+    public static void truncateTable(PGSimpleDataSource ds) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            c = ds.getConnection();
+                    stmt = c.createStatement();
+            String sql = "TRUNCATE TABLE COMPANY";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Table truncated successfully");
+    }
+
     public static void insertIntoTable(PGSimpleDataSource ds) {
         Connection c = null;
         Statement stmt = null;
         try {
             c = ds.getConnection();
             c.setAutoCommit(false);
+            final String INSERT = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES ";
 
             stmt = c.createStatement();
-            String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
-                    + "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
+            String sql = INSERT + "(1, 'Paul', 32, 'California', 20000.00 );";
             stmt.executeUpdate(sql);
 
-            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
-                    + "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+            sql = INSERT + "(2, 'Allen', 25, 'Texas', 15000.00 );";
             stmt.executeUpdate(sql);
 
-            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
-                    + "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
+            sql = INSERT + "(3, 'Teddy', 23, 'Norway', 20000.00 );";
             stmt.executeUpdate(sql);
 
-            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
-                    + "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
+            sql = INSERT + "(4, 'Mark', 25, 'Richmond ', 65000.00 );";
             stmt.executeUpdate(sql);
 
             stmt.close();
             c.commit();
             c.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Records created successfully");
+        System.out.println("Records inserted successfully");
+    }
+
+    public static void upsertIntoTable(PGSimpleDataSource ds) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            c = ds.getConnection();
+            c.setAutoCommit(false);
+            final String UPSERT = "UPSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES ";
+
+            stmt = c.createStatement();
+            String sql = UPSERT + "(5, 'Dan', 25, 'Delaware', 20000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = UPSERT + "(6, 'Stan', 35, 'Kansas', 15000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = UPSERT + "(7, 'Fran', 46, 'Florida', 20000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = UPSERT + "(8, 'Ben', 50, 'Minnesota ', 65000.00 );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+            c.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records upserted successfully");
+    }
+
+    public static void upsertMultiRow(PGSimpleDataSource ds) {
+        Connection c = null;
+        Statement stmt = null;
+        long start = System.currentTimeMillis();
+
+        try {
+            c = ds.getConnection();
+            c.setAutoCommit(true);
+
+            stmt = c.createStatement();
+            String sql = "UPSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                                + " VALUES (9, 'Tom', 11, 'Arizona', 20000.00 ), "
+                                    + "(10, 'Dick', 22, 'Ohio', 15000.00 ), "
+                                    + "(11, 'Harry', 33, 'Omaha', 20000.00 ), "
+                                    + "(12, 'Mercedes', 44, 'Kentucky ', 65000.00 );";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Time in milliseconds: " + (System.currentTimeMillis() - start));
+        System.out.println("Records upserted successfully");
     }
 
 }
