@@ -15,7 +15,7 @@ object Main {
              |     FAMILY "primary" (id, username, rowid)
              | )
     *  insert into users(username) values ('john'), ('mary');
-    */ 
+    */
 
   // this is a class that represents the table I've created in the database
   class Users(tag: Tag) extends Table[(String, String)](tag, "users") {
@@ -57,7 +57,7 @@ object Main {
 
         val defaultTimeout = 10 seconds
 
-       // must use Futures to get result back 
+       // must use Futures to get result back
        //Vector((ee810878-bef2-49d6-ab93-0bf85953a71e,john), (f2248032-94cd-4724-8693-395a5c9c17d6,mary))
        println(Await.result(db.run(users.result), defaultTimeout))
 
@@ -66,4 +66,3 @@ object Main {
        println(Await.result(db.run(company.result), defaultTimeout))
   }
 }
-

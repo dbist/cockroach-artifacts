@@ -11,7 +11,7 @@ object Main {
     def username = column[String]("username")
     def * = (id, username)
   }
-    
+
     def main(args: Array[String]): Unit = {
        // val db = Database.forURL("jdbc:postgresql://maxroach@crdb-1:26257/defaultdb?sslmode=disable",
   //driver="org.postgresql.Driver")
@@ -24,13 +24,13 @@ object Main {
         ds.setUser("maxroach");
         ds.setPassword(null);
         ds.setReWriteBatchedInserts(true);
-        
+
         val db = Database.forDataSource(ds, Some(10))
         val users = TableQuery[Users]
 
         val defaultTimeout = 10 seconds
 
-       // must use Futures to get result back 
+       // must use Futures to get result back
        //Vector((ee810878-bef2-49d6-ab93-0bf85953a71e,john), (f2248032-94cd-4724-8693-395a5c9c17d6,mary))
        println(Await.result(db.run(users.result), defaultTimeout))
   }

@@ -11,26 +11,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
- 
+
 public class PostgreSqlExampleKerberos {
     public static void main(String[] args) {
         validateKerberosWorks();
-    
+
       System.out.println("Authentication succeeded!");
-        
+
         try {
             Properties properties = new Properties();
             properties.setProperty("user", "pguser");
-            
+
             // need ssmode=require with kerberos, otherwise asking for sslrootcert
             properties.setProperty("sslmode", "require");
             properties.setProperty("jaasLogin", "true");
             properties.setProperty("jaasApplicationName", "KerberosExample");
             properties.setProperty("kerberosServerName", "postgres");
             properties.setProperty("gsslib", "auto");
-                        
+
             Connection connection = getConnection(properties);
-            
+
             System.out.println("Connected to PostgreSQL database!");
             Statement statement = connection.createStatement();
             System.out.println("Reading car records...");
@@ -59,18 +59,18 @@ public class PostgreSqlExampleKerberos {
                     + le.getMessage());
             System.exit(-1);
         }
-        
+
         try {
-            
+
             // attempt authentication
             lc.login();
-            
+
         } catch (LoginException le) {
-            
+
             System.err.println("Authentication failed: ");
             System.err.println("  " + le.getMessage());
             System.exit(-1);
-            
+
         }
     }
 

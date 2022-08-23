@@ -8,16 +8,16 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+
 public class PostgreSqlExampleInsecure {
     public static void main(String[] args) {
         try {
             Properties properties = new Properties();
             properties.setProperty("user", "root");
             properties.setProperty("sslmode", "disable");
-                        
+
             Connection connection = getConnection(properties);
-            
+
             System.out.println("Connected to PostgreSQL database!");
             Statement statement = connection.createStatement();
             System.out.println("Reading car records...");

@@ -20,18 +20,18 @@ public class BasicExample {
         ds.setJaasLogin(true);
         ds.setGssLib("auto"); // can also be auto
         ds.setUseSpNego(true);
-        
+
 //      ds.setSsl(true);
 //        ds.setSslMode("require");
 //        ds.setSslCert("certs/client.root.crt");
 //        ds.setSslKey("certs/client.root.key.pk8");
-//        
-        
+//
+
 
 
         ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg connection string
         ds.setApplicationName("BasicExample");
-        
+
         connectToDB(ds);
     }
 
