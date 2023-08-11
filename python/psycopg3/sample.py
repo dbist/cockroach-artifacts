@@ -6,7 +6,7 @@ import psycopg
 import os
 
 # Connect to an existing database
-with psycopg.connect('postgresql://artem@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dbug-bash-artem-968') as conn:
+with psycopg.connect('postgresql://user:password@host:port/defaultdb?sslmode=verify-full&options=--cluster%3Dcluster-routing-id') as conn:
 
     # Open a cursor to perform database operations
     with conn.cursor() as cur:
