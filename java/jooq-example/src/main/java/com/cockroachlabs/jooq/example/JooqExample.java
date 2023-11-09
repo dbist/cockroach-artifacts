@@ -5,7 +5,6 @@ import static org.jooq.impl.DSL.*;
 import test.generated.tables.Author;
 import test.generated.tables.records.AuthorRecord;
 
-
 import org.jooq.Record;
 import java.sql.*;
 import org.jooq.*;
@@ -26,6 +25,14 @@ public class JooqExample {
         // PreparedStatement and ResultSet are handled by jOOQ, internally
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             DSLContext create = DSL.using(conn, SQLDialect.COCKROACHDB);
+
+            create.batch(create.insertInto(AUTHOR, AUTHOR.ID, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME).values((Long) null, null, null))
+                    .bind(1, "Erich", "Gamma")
+                    .bind(2, "Richard", "Helm")
+                    .bind(3, "Ralph", "Johnson")
+                    .bind(4, "John", "Vlissides")
+                    .execute();
+
             Result<Record> result = create.select().from(AUTHOR).fetch();
 
             result.forEach(r -> {
@@ -35,11 +42,9 @@ public class JooqExample {
 
                 System.out.println("ID: " + id + " first name: " + firstName + " last name: " + lastName);
             });
-        }
 
-        // For the sake of this tutorial, let's keep exception handling simple
+        } // For the sake of this tutorial, let's keep exception handling simple
         catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
