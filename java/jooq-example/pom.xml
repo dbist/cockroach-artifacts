@@ -16,25 +16,38 @@
         <dependency>
             <groupId>org.jooq.pro</groupId>
             <artifactId>jooq</artifactId>
-            <version>3.18.7</version>
+            <version>3.17.16</version>
         </dependency>
 
         <!-- These may not be required, unless you use the GenerationTool manually for code generation -->
         <dependency>
             <groupId>org.jooq.pro</groupId>
             <artifactId>jooq-meta</artifactId>
-            <version>3.18.7</version>
+            <version>3.17.16</version>
         </dependency>
         <dependency>
             <groupId>org.jooq.pro</groupId>
             <artifactId>jooq-codegen</artifactId>
-            <version>3.18.7</version>
+            <version>3.17.16</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.5.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/app.cash.jooq/jooq-encryption -->
+        <dependency>
+            <groupId>app.cash.jooq</groupId>
+            <artifactId>jooq-encryption</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.crypto.tink</groupId>
+            <artifactId>tink</artifactId>
+            <version>1.11.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>
