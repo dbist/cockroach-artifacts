@@ -10,7 +10,7 @@
 
 
   <generator>
-    <name>org.jooq.codegen.JavaGenerator</name>
+    <name>app.cash.jooq.EncryptionAwareJavaGenerator</name>
 
     <database>
            <name>org.jooq.meta.cockroachdb.CockroachDBDatabase</name>
@@ -31,7 +31,7 @@
 
     <target>
       <!-- The destination package of your generated classes (within the destination directory) -->
-      <packageName>generated</packageName>
+      <packageName>encryption</packageName>
 
       <!-- The destination directory of your generated classes. Using Maven directory layout here -->
       <directory>/Users/artem/Documents/cockroach-work/cockroach-artifacts/java/jooq-example/src/main/java/com/cockroachlabs/jooq</directory>

@@ -1,15 +1,13 @@
 package com.cockroachlabs.jooq.example;
 
 // For convenience, always static import your generated tables and jOOQ functions to decrease verbosity:
+import static generated.tables.Author.AUTHOR;
 import static org.jooq.impl.DSL.*;
-import test.generated.tables.Author;
-import test.generated.tables.records.AuthorRecord;
 
 import org.jooq.Record;
 import java.sql.*;
 import org.jooq.*;
 import org.jooq.impl.*;
-import static test.generated.tables.Author.AUTHOR;
 
 public class JooqExample {
 
